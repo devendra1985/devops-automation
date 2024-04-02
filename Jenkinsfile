@@ -17,8 +17,8 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
-                   sh 'docker login -u taledevendra -p ${docker-cred}'
+                   withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+                   sh 'docker login -u taledevendra -p ${dockerpwd}'
 
 }
                    sh 'docker push taledevendra/devops-integration'
