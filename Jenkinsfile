@@ -27,9 +27,10 @@ pipeline {
         }
         stage('Deploy to k8s'){
             steps{
-                script{
-                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
-                }
+                withKubeConfig(caCertificate: '', clusterName: 'minikube', contextName: '', credentialsId: 'k8cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://192.168.59.105:8443')
+                {
+                  sh 'kubectl apply -f deploymentservice.yaml'
+                 }
             }
         }
     }
